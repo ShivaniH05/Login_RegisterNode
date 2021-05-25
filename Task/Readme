@@ -1,0 +1,76 @@
+1) Extract zip file
+2) Run on cmd :- npm install or (delete package-lock.json file and then run cmd : npm install)
+3) Create database name : testdb 
+4) For execute code run cmd : node app or nodemon
+
+*API
+
+Postman Collection link : https://www.getpostman.com/collections/bfacdb76ae759e9647e2
+
+1) Attach postman collection link
+2) User registration:
+    API : http://localhost:3000/users/registerUser
+    Request object : 
+       {
+        "firstName":"shivani",
+        "lastName":"mistry",
+        "email":"shivanimistry60@gmail.com",
+        "password":"shivani123",
+        "employeeId":"123456",
+        "organizationName":"xyz organization"
+        }
+    Response :
+    {
+        "id": "80d77d95-6e99-4c43-b762-aa813106bb19",
+        "firstName": "shivani",
+        "lastName": "mistry",
+        "password": "dc36278364bf4e6e84f427e37b0f1654975a0ec4ee6bc6e76ca2abeefa70e7ed",
+        "email": "shivanimistry60@gmail.com",
+        "updatedAt": "2021-05-24T06:40:11.276Z",
+        "createdAt": "2021-05-24T06:40:11.276Z"
+    }
+    Description : duplicate employeeId not work give conflict error 409
+
+3) User login:
+    API : http://localhost:3000/users/loginUser
+    Request object :
+    {
+        "email":"shivanimistry60@gmail.com",
+        "password":"shivani123"
+    }
+    Response :
+    {
+    "user": {
+        "email": "shivanimistry60@gmail.com"
+    },
+    "token": {
+        "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoaXZhbmltaXN0cnk2MEBnbWFpbC5jb20iLCJpZCI6IjAxMmI3MDg1LTg4MGYtNDY1Ni1iNWYyLWRjMTBkN2JkYmM2MSIsImlhdCI6MTYyMTgzNjYzMSwiZXhwIjoxNjIxODQwMjMxLCJhdWQiOiJzaGl2YW5pbWlzdHJ5NjBAZ21haWwuY29tIn0._MTMJrBskB_2wrz-OuDe7mPf0PX3Gl2dg2CzPnVA-8Q",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoaXZhbmltaXN0cnk2MEBnbWFpbC5jb20iLCJpZCI6IjAxMmI3MDg1LTg4MGYtNDY1Ni1iNWYyLWRjMTBkN2JkYmM2MSIsImlhdCI6MTYyMTgzNjYzMSwiZXhwIjoxNjIxOTIzMDMxLCJhdWQiOiJzaGl2YW5pbWlzdHJ5NjBAZ21haWwuY29tIn0.gyEGo7kVDV0zFxw9d3W7bHeUtFWQb8fxCLa5xVdC3Cs"
+    }
+    }
+    Description : After successfull login it will give accessToken and refreshToken for Authorization 
+
+
+4) getUser list :
+    API : http://localhost:3000/users/userList
+    Description : By default it will give all user 
+    1) Search using First Name, Last Name and employeeID
+        api -> http://localhost:3000/users/userList?search=shivani
+    2) Sort data by First Name, Last Name, Email ID, employeeID and Organization Name
+        api -> http://localhost:3000/users/userList?sort=FirstName,asc 
+            ?sort=LastName,desc or ?sort=LastName,asc
+            ?sort=Email,desc or ?sort=Email,asc
+            ?sort=EmployeeId,asc or ?sort=EmployeeId,desc
+            ?sort=organizationName,asc or ?sort=organizationName,desc
+    3) Add pagination to your API to filter the records
+        api -> http://localhost:3000/users/userList?pageNumber=1&&pageSize=2
+
+
+* Structure
+
+1) config folder -> 2 file ,1st one is databaseConnection in which database and model configuration , 2nd database detailes like name, password , databaseName Extract
+2) model -> table field and table Structure
+3) route -> router file in which we write router and api name
+4) service -> in service file business logic is written 
+5) dao -> database connectivity provided in dao file
+6) utilities -> in which common utilities function written and call in other file
